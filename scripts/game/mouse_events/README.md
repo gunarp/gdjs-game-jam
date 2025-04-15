@@ -1,0 +1,1 @@
+Big thanks to snoeyz for a detailed drag and [drop exploration](https://godot.snoeyz.com/drag-and-drop/), and [making source code available]().

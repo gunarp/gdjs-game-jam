@@ -1,0 +1,21 @@
+[gd_scene load_steps=3 format=3 uid="uid://p16kpg2uar58"]
+
+[ext_resource type="Script" path="res://scripts/game/mouse_events/draggable_entity.gd" id="1_iqag0"]
+[ext_resource type="Texture2D" uid="uid://bsvd6byy25rgl" path="res://icon.svg" id="2_630ab"]
+
+[node name="Draggable" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_iqag0")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("2_630ab")
+
+[connection signal="gui_input" from="." to="." method="_on_gui_input"]

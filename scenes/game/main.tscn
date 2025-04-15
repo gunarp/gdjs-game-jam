@@ -1,0 +1,85 @@
+[gd_scene load_steps=4 format=3 uid="uid://wsgirf3lk5aj"]
+
+[ext_resource type="Script" path="res://scripts/game/mouse_events/mouse_driver.gd" id="1_h6xgj"]
+[ext_resource type="Script" path="res://scripts/game/mouse_events/seat.gd" id="1_x7h1y"]
+[ext_resource type="Script" path="res://scripts/game/mouse_events/source_slot.gd" id="2_k4wr8"]
+
+[node name="Game" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_top = -1.0
+offset_bottom = -1.0
+script = ExtResource("1_h6xgj")
+
+[node name="SeatingArea" type="Control" parent="."]
+anchors_preset = 0
+offset_left = 221.0
+offset_top = 119.0
+offset_right = 349.0
+offset_bottom = 379.0
+scale = Vector2(1, 1.02203)
+
+[node name="Table1" type="GridContainer" parent="SeatingArea"]
+layout_mode = 2
+offset_right = 128.0
+offset_bottom = 260.0
+
+[node name="Seat" type="PanelContainer" parent="SeatingArea/Table1"]
+custom_minimum_size = Vector2(128, 128)
+layout_mode = 2
+script = ExtResource("1_x7h1y")
+
+[node name="Seat2" type="PanelContainer" parent="SeatingArea/Table1"]
+custom_minimum_size = Vector2(128, 128)
+layout_mode = 2
+script = ExtResource("1_x7h1y")
+seat_id = 1
+
+[node name="Table2" type="GridContainer" parent="SeatingArea"]
+layout_mode = 2
+offset_left = 354.0
+offset_top = -5.0
+offset_right = 482.0
+offset_bottom = 255.0
+
+[node name="Seat3" type="PanelContainer" parent="SeatingArea/Table2"]
+custom_minimum_size = Vector2(128, 128)
+layout_mode = 2
+script = ExtResource("1_x7h1y")
+seat_id = 3
+
+[node name="Seat4" type="PanelContainer" parent="SeatingArea/Table2"]
+custom_minimum_size = Vector2(128, 128)
+layout_mode = 2
+script = ExtResource("1_x7h1y")
+seat_id = 3
+
+[node name="UnitMenu" type="GridContainer" parent="."]
+layout_mode = 0
+offset_left = 891.0
+offset_top = 7.0
+offset_right = 1019.0
+offset_bottom = 531.0
+
+[node name="SourceSlot" type="PanelContainer" parent="UnitMenu"]
+custom_minimum_size = Vector2(128, 128)
+layout_mode = 2
+script = ExtResource("2_k4wr8")
+
+[node name="SourceSlot2" type="PanelContainer" parent="UnitMenu"]
+custom_minimum_size = Vector2(128, 128)
+layout_mode = 2
+script = ExtResource("2_k4wr8")
+unit_id = 1
+
+[node name="SourceSlot3" type="PanelContainer" parent="UnitMenu"]
+custom_minimum_size = Vector2(128, 128)
+layout_mode = 2
+script = ExtResource("2_k4wr8")
+unit_id = 2
+
+[node name="SourceSlot4" type="PanelContainer" parent="UnitMenu"]
+custom_minimum_size = Vector2(128, 128)
+layout_mode = 2
+script = ExtResource("2_k4wr8")
+unit_id = 3
