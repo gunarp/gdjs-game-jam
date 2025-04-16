@@ -5,13 +5,13 @@ var seated_unit_id: int = -1
 
 
 func add_entity(entity: DraggableEntity) -> void:
-  print("unit ", entity.unit_id, " moved into ", seat_id)
+  # print("unit ", entity.unit_id, " moved into ", seat_id)
   seated_unit_id = entity.unit_id
   super(entity)
 
 
 func dragged_away(entity: DraggableEntity) -> void:
-  print("unit ", entity.unit_id, " taken out of ", seat_id)
+  # print("unit ", entity.unit_id, " taken out of ", seat_id)
   seated_unit_id = -1
   super(entity)
 

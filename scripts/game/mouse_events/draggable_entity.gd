@@ -20,9 +20,25 @@ var manual_old_pos: Vector2
 # @onready var value_label: Label = $CardFace/ValueLabel
 # @onready var sprite_2d: Sprite2D = $CardFace/Sprite2D
 
+# classic antipattern lol
+const icon_table = [
+  "uid://c2r02ab0furg1",
+  "uid://c4n5paexjayxk",
+  "uid://bxmdam7lqmsxm",
+  "uid://dy8pc7vxgw20f",
+  "uid://djilitxsrlk6v"
+]
 
 func _init() -> void:
   pass
+
+
+func set_unit_id(_unit_id: int) -> void:
+  unit_id = _unit_id
+
+
+func _ready() -> void:
+  texture_rect.texture = load(icon_table[unit_id])
 
 
 func get_preview() -> Control:
