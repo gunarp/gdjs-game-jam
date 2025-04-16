@@ -35,6 +35,12 @@ layout_mode = 2
 script = ExtResource("1_x7h1y")
 seat_id = 1
 
+[node name="Seat3" type="PanelContainer" parent="SeatingArea/Table1"]
+custom_minimum_size = Vector2(128, 128)
+layout_mode = 2
+script = ExtResource("1_x7h1y")
+seat_id = 2
+
 [node name="Table2" type="GridContainer" parent="SeatingArea"]
 layout_mode = 2
 offset_left = 354.0
@@ -52,7 +58,7 @@ seat_id = 3
 custom_minimum_size = Vector2(128, 128)
 layout_mode = 2
 script = ExtResource("1_x7h1y")
-seat_id = 3
+seat_id = 4
 
 [node name="UnitMenu" type="GridContainer" parent="."]
 layout_mode = 0
@@ -83,3 +89,9 @@ custom_minimum_size = Vector2(128, 128)
 layout_mode = 2
 script = ExtResource("2_k4wr8")
 unit_id = 3
+
+[node name="SourceSlot5" type="PanelContainer" parent="UnitMenu"]
+custom_minimum_size = Vector2(128, 128)
+layout_mode = 2
+script = ExtResource("2_k4wr8")
+unit_id = 4
