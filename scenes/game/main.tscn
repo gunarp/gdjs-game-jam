@@ -1,15 +1,18 @@
-[gd_scene load_steps=4 format=3 uid="uid://wsgirf3lk5aj"]
+[gd_scene load_steps=7 format=3 uid="uid://wsgirf3lk5aj"]
 
-[ext_resource type="Script" uid="uid://0althntw4b2j" path="res://scripts/game/mouse_events/mouse_driver.gd" id="1_h6xgj"]
 [ext_resource type="Script" uid="uid://0wrp0pkj5xwk" path="res://scripts/game/mouse_events/seat.gd" id="1_x7h1y"]
+[ext_resource type="Script" uid="uid://di0to8dxdu3oc" path="res://scripts/game/state/game_state.gd" id="1_yd8kv"]
 [ext_resource type="Script" uid="uid://xrw3apvq8tow" path="res://scripts/game/mouse_events/source_slot.gd" id="2_k4wr8"]
+[ext_resource type="Script" uid="uid://bnocf0gvg5khx" path="res://scripts/core_systems/map/map.gd" id="4_j7lav"]
+[ext_resource type="Script" uid="uid://cjivf3e4x2l2c" path="res://scripts/core_systems/units/units_db.gd" id="5_j7lav"]
+[ext_resource type="Script" uid="uid://qjp7s5a5o6fh" path="res://scripts/core_systems/complications/complications_db.gd" id="6_g38uy"]
 
 [node name="Game" type="Control"]
 layout_mode = 3
 anchors_preset = 0
 offset_top = -1.0
 offset_bottom = -1.0
-script = ExtResource("1_h6xgj")
+script = ExtResource("1_yd8kv")
 
 [node name="SeatingArea" type="Control" parent="."]
 anchors_preset = 0
@@ -62,10 +65,10 @@ seat_id = 4
 
 [node name="UnitMenu" type="GridContainer" parent="."]
 layout_mode = 0
-offset_left = 891.0
-offset_top = 7.0
-offset_right = 1019.0
-offset_bottom = 531.0
+offset_left = 896.0
+offset_top = 2.0
+offset_right = 1024.0
+offset_bottom = 658.0
 
 [node name="SourceSlot" type="PanelContainer" parent="UnitMenu"]
 custom_minimum_size = Vector2(128, 128)
@@ -95,3 +98,50 @@ custom_minimum_size = Vector2(128, 128)
 layout_mode = 2
 script = ExtResource("2_k4wr8")
 unit_id = 4
+
+[node name="SubmitButton" type="Button" parent="."]
+layout_mode = 0
+offset_left = 514.0
+offset_top = 479.0
+offset_right = 666.0
+offset_bottom = 599.0
+text = "Seat those kids!"
+
+[node name="PauseMenu" type="CanvasLayer" parent="."]
+visible = false
+
+[node name="ColorRect" type="ColorRect" parent="PauseMenu"]
+offset_right = 1153.0
+offset_bottom = 660.0
+color = Color(0.11358, 0.0780494, 0.0231472, 1)
+
+[node name="BackButton" type="Button" parent="PauseMenu"]
+offset_left = 297.0
+offset_top = 250.0
+offset_right = 869.0
+offset_bottom = 452.0
+text = "Go Back"
+
+[node name="Label" type="Label" parent="PauseMenu"]
+offset_left = 439.0
+offset_top = 152.0
+offset_right = 753.0
+offset_bottom = 189.0
+text = "Wow you submitted those kids real good"
+
+[node name="CoreState" type="Node" parent="."]
+
+[node name="Map" type="Node" parent="CoreState"]
+script = ExtResource("4_j7lav")
+metadata/_custom_type_script = "uid://bnocf0gvg5khx"
+
+[node name="UnitsDb" type="Node" parent="CoreState"]
+script = ExtResource("5_j7lav")
+metadata/_custom_type_script = "uid://cjivf3e4x2l2c"
+
+[node name="ComplicationsDb" type="Node" parent="CoreState"]
+script = ExtResource("6_g38uy")
+metadata/_custom_type_script = "uid://qjp7s5a5o6fh"
+
+[connection signal="pressed" from="SubmitButton" to="." method="_on_submit_button_pressed"]
+[connection signal="pressed" from="PauseMenu/BackButton" to="." method="_on_back_button_pressed"]

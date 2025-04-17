@@ -11,6 +11,7 @@ var unit_id: int
 var mouse_offset: Vector2
 var is_being_dragged: bool
 var dragged_from_pos: Vector2
+var in_tween: bool
 
 var manual_unparented: bool = false
 var manual_old_pos: Vector2
@@ -46,16 +47,18 @@ func get_preview() -> Control:
 
 
 func _on_mouse_button_down() -> void:
-  mouse_offset = get_local_mouse_position()
-  dragged_from_pos = global_position
-  z_index += 1
-  is_being_dragged = true
+  if not in_tween:
+    mouse_offset = get_local_mouse_position()
+    dragged_from_pos = global_position
+    z_index += 1
+    is_being_dragged = true
 
 
 func _on_mouse_button_up() -> void:
-  MouseEventsBus.global_entity_dropped.emit(self)
-  z_index -= 1
-  is_being_dragged = false
+  if is_being_dragged:
+    MouseEventsBus.global_entity_dropped.emit(self)
+    z_index -= 1
+    is_being_dragged = false
 
 
 func revert_pos() -> void:
@@ -63,6 +66,7 @@ func revert_pos() -> void:
 
 
 func tween_pos_done() -> void:
+  in_tween = false
   z_index -= 1
 
 
@@ -75,6 +79,7 @@ func move_to_pos(pos: Vector2) -> void:
   var tween: Tween = get_tree().create_tween()
   tween.set_ease(Tween.EASE_IN_OUT)
   tween.tween_property(self, "global_position", pos, TWEEN_TIME)
+  in_tween = true
   tween.tween_callback(tween_pos_done)
 
 

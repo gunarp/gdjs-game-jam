@@ -5,10 +5,6 @@ class_name Map
 func _ready() -> void:
   pass
 
-class Neighbor:
-  var seat_id: int
-  var distance: int
-
 func get_neighbors(seat_id: int) -> Array[Neighbor]:
   return []
 
