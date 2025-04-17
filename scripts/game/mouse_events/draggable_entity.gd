@@ -11,15 +11,35 @@ var unit_id: int
 var mouse_offset: Vector2
 var is_being_dragged: bool
 var dragged_from_pos: Vector2
+var in_tween: bool
+
+var manual_unparented: bool = false
+var manual_old_pos: Vector2
 
 @onready var texture_rect: TextureRect = $TextureRect
 # @onready var card_face: Panel = $CardFace
 # @onready var value_label: Label = $CardFace/ValueLabel
 # @onready var sprite_2d: Sprite2D = $CardFace/Sprite2D
 
+# classic antipattern lol
+const icon_table = [
+  "uid://c2r02ab0furg1",
+  "uid://c4n5paexjayxk",
+  "uid://bxmdam7lqmsxm",
+  "uid://dy8pc7vxgw20f",
+  "uid://djilitxsrlk6v"
+]
 
 func _init() -> void:
   pass
+
+
+func set_unit_id(_unit_id: int) -> void:
+  unit_id = _unit_id
+
+
+func _ready() -> void:
+  texture_rect.texture = load(icon_table[unit_id])
 
 
 func get_preview() -> Control:
@@ -27,18 +47,18 @@ func get_preview() -> Control:
 
 
 func _on_mouse_button_down() -> void:
-  print("down")
-  mouse_offset = get_local_mouse_position()
-  dragged_from_pos = global_position
-  z_index += 1
-  is_being_dragged = true
+  if not in_tween:
+    mouse_offset = get_local_mouse_position()
+    dragged_from_pos = global_position
+    z_index += 1
+    is_being_dragged = true
 
 
 func _on_mouse_button_up() -> void:
-  print("up")
-  MouseEventsBus.global_entity_dropped.emit(self)
-  z_index -= 1
-  is_being_dragged = false
+  if is_being_dragged:
+    MouseEventsBus.global_entity_dropped.emit(self)
+    z_index -= 1
+    is_being_dragged = false
 
 
 func revert_pos() -> void:
@@ -46,6 +66,7 @@ func revert_pos() -> void:
 
 
 func tween_pos_done() -> void:
+  in_tween = false
   z_index -= 1
 
 
@@ -58,17 +79,27 @@ func move_to_pos(pos: Vector2) -> void:
   var tween: Tween = get_tree().create_tween()
   tween.set_ease(Tween.EASE_IN_OUT)
   tween.tween_property(self, "global_position", pos, TWEEN_TIME)
+  in_tween = true
   tween.tween_callback(tween_pos_done)
 
 
 func move_to_slot(slot: DroppableSlot) -> void:
   var old_pos: Vector2 = global_position
-  dragged_away.emit(self)
-  # card_source = slot.slot_type
-  # toggle_flip(slot.slot_type != DroppableSlot.MouseEventsCardSlotType.DECK)
+  if not manual_unparented:
+    dragged_away.emit(self)
+  else:
+    old_pos = manual_old_pos
+
+  manual_unparented = false
   slot.add_entity(self)
   set_deferred("global_position", old_pos)
   call_deferred("move_to_pos", slot.global_position)
+
+
+func manual_unparent() -> void:
+  manual_unparented = true
+  manual_old_pos = global_position
+  dragged_away.emit(self)
 
 
 func _on_gui_input(event: InputEvent) -> void:
@@ -80,5 +111,4 @@ func _on_gui_input(event: InputEvent) -> void:
       else:
         _on_mouse_button_up()
   elif is_being_dragged and event is InputEventMouseMotion:
-    var mouse_event: InputEventMouseMotion = event as InputEventMouseMotion
     global_position = get_global_mouse_position() - mouse_offset

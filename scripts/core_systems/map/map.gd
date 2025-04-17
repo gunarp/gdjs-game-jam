@@ -1,10 +1,6 @@
 extends Node
 
 class_name Map
-
-class Neighbor:
-  var seat_id: int
-  var distance: int
   
 class Seat_Info:
   var unit_id = -1
@@ -16,14 +12,20 @@ func _ready() -> void:
   var seat_vals = [1, 0, 3, 2]
   for i in range(4):
     var temp = Neighbor.new()
+    var temp_seat = Seat_Info.new()
     temp.seat_id = seat_vals[i]
     temp.distance = 1
-    var temp_seat = Seat_Info.new()
-    temp_seat.neighbors = temp
+    
+    var temp_arr: Array[Neighbor] = [temp]
+    
+    temp_seat.neighbors = temp_arr
     map.append(temp_seat)
   
   print(map)
   pass
+
+func _to_string() -> String:
+  return "hello!"
 
 func get_neighbors(seat_id: int) -> Array[Neighbor]:
   return map[seat_id].neighbors
