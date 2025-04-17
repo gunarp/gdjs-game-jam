@@ -1,18 +1,18 @@
 [gd_scene load_steps=7 format=3 uid="uid://wsgirf3lk5aj"]
 
-[ext_resource type="Script" uid="uid://0wrp0pkj5xwk" path="res://scripts/game/mouse_events/seat.gd" id="1_x7h1y"]
-[ext_resource type="Script" uid="uid://di0to8dxdu3oc" path="res://scripts/game/state/game_state.gd" id="1_yd8kv"]
-[ext_resource type="Script" uid="uid://xrw3apvq8tow" path="res://scripts/game/mouse_events/source_slot.gd" id="2_k4wr8"]
-[ext_resource type="Script" uid="uid://bnocf0gvg5khx" path="res://scripts/core_systems/map/map.gd" id="4_j7lav"]
-[ext_resource type="Script" uid="uid://cjivf3e4x2l2c" path="res://scripts/core_systems/units/units_db.gd" id="5_j7lav"]
-[ext_resource type="Script" uid="uid://qjp7s5a5o6fh" path="res://scripts/core_systems/complications/complications_db.gd" id="6_g38uy"]
+[ext_resource type="Script" path="res://scripts/kids_stats.gd" id="1_e0k60"]
+[ext_resource type="Script" path="res://scripts/game/mouse_events/seat.gd" id="1_x7h1y"]
+[ext_resource type="Script" path="res://scripts/game/mouse_events/source_slot.gd" id="2_k4wr8"]
+[ext_resource type="Script" path="res://scripts/core_systems/map/map.gd" id="4_j7lav"]
+[ext_resource type="Script" path="res://scripts/core_systems/units/units_db.gd" id="5_j7lav"]
+[ext_resource type="Script" path="res://scripts/core_systems/complications/complications_db.gd" id="6_g38uy"]
 
 [node name="Game" type="Control"]
 layout_mode = 3
 anchors_preset = 0
 offset_top = -1.0
 offset_bottom = -1.0
-script = ExtResource("1_yd8kv")
+script = ExtResource("1_e0k60")
 
 [node name="SeatingArea" type="Control" parent="."]
 anchors_preset = 0
