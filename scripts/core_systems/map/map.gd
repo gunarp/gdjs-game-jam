@@ -2,30 +2,42 @@ extends Node
 
 class_name Map
   
-class Seat_Info:
+class SeatInfo:
   var unit_id = -1
   var neighbors: Array[Neighbor]
-
-var map: Array[Seat_Info] = []
-
-func _ready() -> void:
-  var seat_vals = [1, 0, 3, 2]
-  for i in range(4):
-    var temp = Neighbor.new()
-    var temp_seat = Seat_Info.new()
-    temp.seat_id = seat_vals[i]
-    temp.distance = 1
-    
-    var temp_arr: Array[Neighbor] = [temp]
-    
-    temp_seat.neighbors = temp_arr
-    map.append(temp_seat)
   
-  print(map)
-  pass
+  func _to_string():
+    return "unit_id: " + str(self.unit_id) + ", " + str(neighbors)
+
+var map: Array[SeatInfo] = []
 
 func _to_string() -> String:
   return "hello!"
+
+func _ready() -> void:
+  var zone_size = [3, 2]
+  var zone_first_seat = 0
+  
+  # for each given zone
+  for i in zone_size: # i.e. 3, 2
+    for seat in range(i): #for each seat in zone i, i.e. 0, 1, 2
+      var temp_seat = SeatInfo.new()
+      var temp_arr: Array[Neighbor] = []
+      
+      for neighbor in range(i): # compare to the other seats
+        var temp = Neighbor.new()
+        if neighbor != seat:
+          temp.seat_id = neighbor + zone_first_seat
+          temp.distance = abs(neighbor - seat)
+          temp_arr.append(temp)
+          
+      temp_seat.neighbors = temp_arr
+      map.append(temp_seat)
+    zone_first_seat += i
+  
+  print(map)
+  print(map.size())
+  pass
 
 func get_neighbors(seat_id: int) -> Array[Neighbor]:
   return map[seat_id].neighbors
